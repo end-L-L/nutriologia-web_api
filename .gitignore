@@ -48,3 +48,6 @@ coverage.xml
 *.sw*
 manage.py
 .DS_Store
+
+# Migrations 
+nutriologia/migrations/*

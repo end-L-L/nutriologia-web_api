@@ -16,7 +16,7 @@ from nutriologia.serializers import NutriologoSerializer
 class NutriologoView(APIView):
 
     # obtener nutriologo por ID - haciendo jwt
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
         nutriologo = NutriologoSerializer(nutriologo, many=False).data
@@ -71,7 +71,8 @@ class NutriologoView(APIView):
             return Response({"nutritionist_created_id": nutriologo.id}, 201)
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    # actualizar nutriologo 
+    # actualizar nutriologo
+    permission_classes = [IsAuthenticated]
     def put(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
         nutriologo.especialidad = request.data['especialidad']
@@ -90,6 +91,7 @@ class NutriologoView(APIView):
         return Response({"message": "nutriologo actualizado"}, 200)
     
     # eliminar nutriologo
+    permission_classes = [IsAuthenticated]
     def delete(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
         
@@ -105,6 +107,7 @@ class NutriologoView(APIView):
 
 class NutriologosAll(APIView):
     # obtener todos los nutriologos
+    permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         nutriologos = Nutriologo.objects.all().order_by('id')
         lista = NutriologoSerializer(nutriologos, many=True)

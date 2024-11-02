@@ -33,7 +33,9 @@ class NutriologoView(APIView):
         return Response(nutriologo, 200)
 
     # crear nutricionista
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
+    #@authentication_classes([])
+    authentication_classes = [] # no token
     def post(self, request, *args, **kwargs):
         user = UserSerializer(data=request.data)
         if user.is_valid():

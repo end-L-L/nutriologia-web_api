@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from nutriologia.models import Nutriologo
 from nutriologia.serializers import UserSerializer
@@ -14,7 +15,8 @@ from nutriologia.serializers import NutriologoSerializer
 
 class NutriologoView(APIView):
 
-    # obtener nutriologo por ID
+    # obtener nutriologo por ID - haciendo jwt
+    #permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
         nutriologo = NutriologoSerializer(nutriologo, many=False).data
@@ -102,6 +104,7 @@ class NutriologoView(APIView):
 
 
 class NutriologosAll(APIView):
+    # obtener todos los nutriologos
     def get(self, request, *args, **kwargs):
         nutriologos = Nutriologo.objects.all().order_by('id')
         lista = NutriologoSerializer(nutriologos, many=True)

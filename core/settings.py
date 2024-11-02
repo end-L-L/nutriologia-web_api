@@ -156,14 +156,36 @@ REST_FRAMEWORK = {
     # )
 }
 
-# SIMPLE_JWT = {
-#     'ROTATE_REFRESH_TOKENS': False,
-#     'BLACKLIST_AFTER_ROTATION': True,
-#     'ALGORITHM': 'HS256',
-#     'SIGNING_KEY': SECRET_KEY,  # Asegúrate de tener SECRET_KEY definido
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-# }
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = []
+# CORS_ALLOWED_ORIGINS = []
+
+# CORS Config
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',  # URL de Desarrollo de Angular
+    'https://nutriologia.vercel.app',  # URL de Producción de Angular
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Cookies con CORS
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+]
+
+CORS_ALLOWED_HEADERS = [
+    'Authorization',
+    'Content-Type',
+    'X-CSRFToken',
+]

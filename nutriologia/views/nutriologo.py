@@ -8,11 +8,20 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from nutriologia.models import Nutriologo
 from nutriologia.serializers import UserSerializer
 from nutriologia.serializers import NutriologoSerializer
 
+
+# Generate Token Manually
+def get_tokens_for_user(user):
+  refresh = RefreshToken.for_user(user)
+  return {
+      'refresh': str(refresh),
+      'access': str(refresh.access_token),
+  }
 
 class NutriologoView(APIView):
 
@@ -70,6 +79,8 @@ class NutriologoView(APIView):
                                                     )
             nutriologo.save()
 
+            token = get_tokens_for_user(nutriologo)
+        
             return Response({"nutritionist_created_id": nutriologo.id}, 201)
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
     

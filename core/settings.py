@@ -32,11 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
     'core',
     'nutriologia',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -161,3 +163,9 @@ REST_FRAMEWORK = {
 #     'SIGNING_KEY': SECRET_KEY,  # Asegúrate de tener SECRET_KEY definido
 #     'AUTH_HEADER_TYPES': ('Bearer',),
 # }
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "https://nutriologia-web-api.onrender.com/",
+]

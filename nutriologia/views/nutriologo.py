@@ -14,19 +14,10 @@ from nutriologia.models import Nutriologo
 from nutriologia.serializers import UserSerializer
 from nutriologia.serializers import NutriologoSerializer
 
-
-# # Generate Token Manually
-# def get_tokens_for_user(user):
-#   refresh = RefreshToken.for_user(user)
-#   return {
-#       'refresh': str(refresh),
-#       'access': str(refresh.access_token),
-#   }
-
 class NutriologoView(APIView):
 
     authentication_classes = [] # no token
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
     
     # obtener nutriologo por ID - haciendo jwt
     permission_classes = [IsAuthenticated]

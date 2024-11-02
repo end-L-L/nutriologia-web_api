@@ -15,16 +15,19 @@ from nutriologia.serializers import UserSerializer
 from nutriologia.serializers import NutriologoSerializer
 
 
-# Generate Token Manually
-def get_tokens_for_user(user):
-  refresh = RefreshToken.for_user(user)
-  return {
-      'refresh': str(refresh),
-      'access': str(refresh.access_token),
-  }
+# # Generate Token Manually
+# def get_tokens_for_user(user):
+#   refresh = RefreshToken.for_user(user)
+#   return {
+#       'refresh': str(refresh),
+#       'access': str(refresh.access_token),
+#   }
 
 class NutriologoView(APIView):
 
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
+    
     # obtener nutriologo por ID - haciendo jwt
     permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
@@ -34,8 +37,6 @@ class NutriologoView(APIView):
 
     # crear nutricionista
     #@authentication_classes([])
-    authentication_classes = [] # no token
-    permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
         user = UserSerializer(data=request.data)
         if user.is_valid():
@@ -81,7 +82,7 @@ class NutriologoView(APIView):
                                                     )
             nutriologo.save()
 
-            token = get_tokens_for_user(nutriologo)
+            #token = get_tokens_for_user(nutriologo)
         
             return Response({"nutritionist_created_id": nutriologo.id}, 201)
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 
 from nutriologia.models import Nutriologo
@@ -23,6 +24,7 @@ class NutriologoView(APIView):
         return Response(nutriologo, 200)
 
     # crear nutricionista
+    permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
         user = UserSerializer(data=request.data)
         if user.is_valid():

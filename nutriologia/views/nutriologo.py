@@ -38,6 +38,10 @@ class NutriologoViewPublic(APIView):
             if User.objects.filter(username=username).exists():
                 return Response({"message": "username ya registrado"}, 400)
 
+            # validar cedula
+            if Nutriologo.objects.filter(cedula=request.data['cedula']).exists():
+                return Response({"message": "cedula ya registrada"}, 400) 
+
             # crear usuario
             user = User.objects.create_user(
                 username=username,

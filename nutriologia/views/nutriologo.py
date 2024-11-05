@@ -56,7 +56,7 @@ class NutriologoViewPublic(APIView):
             user.save()
 
             # rol de nutriologo
-            group, created = Group.objects.get_or_create(name='Nutriologo')
+            group, created = Group.objects.get_or_create(name='nutriologo')
             group.user_set.add(user)
             user.save()
 
@@ -90,11 +90,15 @@ class NutriologoView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
-        nutriologo = NutriologoSerializer(nutriologo, many=False).data
+        nutriologo_data = NutriologoSerializer(nutriologo, many=False).data
+        user = nutriologo.user
+        grupo_nutriologo = user.groups.filter(name="nutriologo").first()
+        nutriologo_data['role'] = grupo_nutriologo.name if grupo_nutriologo else "s/r"
+
         return Response(nutriologo, 200)
     
 
-        # actualizar nutriologo
+    # actualizar nutriologo
     permission_classes = [IsAuthenticated]
     def put(self, request, *args, **kwargs):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))

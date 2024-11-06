@@ -94,7 +94,7 @@ class NutriologoView(APIView):
         grupo_nutriologo = user.groups.filter(name="Nutriologo").first()
         nutriologo_data['rol'] = grupo_nutriologo.name if grupo_nutriologo else "s/r"
 
-        return Response(grupo_nutriologo, 200)
+        return Response(nutriologo_data, 200)
     
 
     # actualizar nutriologo

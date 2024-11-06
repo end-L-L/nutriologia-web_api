@@ -61,10 +61,8 @@ class NutriologoViewPublic(APIView):
 
             # crear perfil de nutriologo
             nutriologo = Nutriologo.objects.create(user=user,
-                                                       especialidad=request.data['especialidad'],
                                                        cedula=request.data['cedula'],
-                                                       telefono=request.data['telefono'],
-                                                       direccion=request.data['direccion']
+                                                       telefono=request.data['telefono']
                                                     )
             nutriologo.save()
 

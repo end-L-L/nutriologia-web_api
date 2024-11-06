@@ -176,6 +176,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',  # URL de Desarrollo de Angular
     'https://nutriologia.vercel.app',  # URL de Producción de Angular
     'https://nutriologia-web-app.vercel.app',  # URL de Producción de Angular
+    'https://nutriologia-web-app-git-backend-login-end-l-ls-projects.vercel.app/' # URL de Producción de Angular
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Cookies con CORS

@@ -56,7 +56,7 @@ class NutriologoViewPublic(APIView):
             user.save()
 
             # rol de nutriologo
-            group, created = Group.objects.get_or_create(name='Nutriologo')
+            group, created = Group.objects.get_or_create(name='nutriologo')
             group.user_set.add(user)
 
             # crear perfil de nutriologo
@@ -70,7 +70,7 @@ class NutriologoViewPublic(APIView):
 
             #token = get_tokens_for_user(nutriologo)
         
-            return Response({"nutritionist_created_id": nutriologo.id}, 201)
+            return Response({"mensaje: id-nutriologo-creado": nutriologo.id}, 201)
         return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -91,7 +91,7 @@ class NutriologoView(APIView):
         nutriologo = get_object_or_404(Nutriologo, id = request.GET.get("id"))
         nutriologo_data = NutriologoSerializer(nutriologo, many=False).data
         user = nutriologo.user
-        grupo_nutriologo = user.groups.filter(name="Nutriologo").first()
+        grupo_nutriologo = user.groups.filter(name="nutriologo").first()
         nutriologo_data['rol'] = grupo_nutriologo.name if grupo_nutriologo else "s/r"
 
         return Response(nutriologo_data, 200)
@@ -114,7 +114,7 @@ class NutriologoView(APIView):
 
         user = NutriologoSerializer(nutriologo, many=False)
 
-        return Response({"message": "nutriologo actualizado"}, 200)
+        return Response({"mensaje": "nutriologo actualizado"}, 200)
     
     # eliminar nutriologo
     permission_classes = [IsAuthenticated]
@@ -126,6 +126,6 @@ class NutriologoView(APIView):
             user = nutriologo.user
             nutriologo.delete()
             user.delete()
-            return Response({"message": "nutriologo eliminado"}, 200)
+            return Response({"mensaje": "nutriologo eliminado"}, 200)
         except:
-            return Response({"message": "error al eliminar nutriologo"}, 400)
+            return Response({"mensaje": "error al eliminar nutriologo"}, 400)

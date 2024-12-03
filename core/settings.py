@@ -28,11 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
     'core',
     'nutriologia',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,3 +142,28 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
+
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = []
+
+# CORS Config
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',  # URL de Desarrollo de Angular
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Cookies con CORS
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+]
+
+CORS_ALLOWED_HEADERS = [
+    'Authorization',
+    'Content-Type',
+    'X-CSRFToken',
+]

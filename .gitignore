@@ -46,8 +46,11 @@ coverage.xml
 
 # Developers
 *.sw*
-manage.py
+# manage.py
 .DS_Store
 
 # Migrations 
 nutriologia/migrations/*
+
+# Database
+db.sqlite3

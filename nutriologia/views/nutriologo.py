@@ -66,12 +66,10 @@ class NutriologoViewPublic(APIView):
                     first_name=first_name,
                     last_name=last_name,
                     email=email,
+                    password=password,
                     is_active=1
                 )
-                
-                # password encriptada
-                user.set_password(password)
-
+             
                 # rol de nutriologo
                 group, created = Group.objects.get_or_create(name='nutriologo')
                 group.user_set.add(user)

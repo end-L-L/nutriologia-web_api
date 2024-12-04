@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from nutriologia.models import Nutriologo
+from nutriologia.models import Paciente
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,4 +17,10 @@ class NutriologoSerializer(serializers.ModelSerializer):
     user=UserSerializer()
     class Meta:
         model = Nutriologo
+        fields = '__all__'
+
+class PacienteSerializer(serializers.ModelSerializer):
+    user=UserSerializer()
+    class Meta:
+        model = Paciente
         fields = '__all__'

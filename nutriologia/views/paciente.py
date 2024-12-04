@@ -85,6 +85,9 @@ class PacienteViewPublic(APIView):
         
 
 class PacientesAll(APIView):
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
 
     # obtener todos los pacientes
     def get(self, request, *args, **kwargs):

@@ -23,7 +23,7 @@ class AdminSeguimiento_Calorico(admin.ModelAdmin):
 class AdminSeguimiento_Porciones(admin.ModelAdmin):
     list_display = ('paciente', 'porciones_recomendadas', 'porciones_consumidas', 'porciones_excedentes', 'fecha')
     search_fields = ('paciente', 'fecha')
-    readonly_fields = ('fecha')
+    readonly_fields = ('fecha',)
 
 class AdminPeso_Mensual(admin.ModelAdmin):
     list_display = ('paciente', 'mes', 'anio', 'peso_inicial','calorias_recomendadas', 'calorias_consumidas', 'calorias_excedentes')

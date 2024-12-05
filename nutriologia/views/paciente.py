@@ -9,9 +9,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 
-from nutriologia.models import Paciente
-from nutriologia.serializers import UserSerializer
-from nutriologia.serializers import PacienteSerializer
+from nutriologia.models import *
+from nutriologia.serializers import *
 
 # public view sin autenticación
 class PacienteViewPublic(APIView):
@@ -77,6 +76,18 @@ class PacienteViewPublic(APIView):
                                                         )
                 
                 paciente.save()
+
+                # crear registro (Seguimiento_Calorico) para el paciente
+                s_calorico = Seguimiento_Calorico.objects.create(paciente=paciente)
+                s_calorico.save()
+
+                # crear registro (Seguimiento_Porciones) para el paciente
+                s_porciones = Seguimiento_Porciones.objects.create(paciente=paciente)
+                s_porciones.save()
+
+                # crear registro (Peso_Mensual) para el paciente
+                peso_mensual = Peso_Mensual.objects.create(paciente=paciente)
+                peso_mensual.save()
 
                 return Response({"patient_created_id": paciente.id}, 201)
             return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)

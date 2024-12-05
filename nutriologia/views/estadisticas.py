@@ -1,10 +1,12 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
 from nutriologia.models import *
 from nutriologia.serializers import *
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 # Seguimiento Calorico
 
@@ -15,6 +17,10 @@ class SegimientoCaloricoAllView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class SeguimientoCaloricoView(APIView):
+
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
 
     def get(self, request, id, format=None):
         try:
@@ -51,12 +57,21 @@ class SeguimientoCaloricoView(APIView):
 # Seguimiento Porciones
 
 class SeguimientoPorcionesAllView(APIView):
+    
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
+
     def get(self, request):
         seguimientos = Seguimiento_Porciones.objects.all().order_by('-fecha')
         serializer = Seguimiento_Porciones_Serializer(seguimientos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class SeguimientoPorcionesView(APIView):
+
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]    
     
     def get(self, request, id, format=None):
         try:
@@ -93,12 +108,21 @@ class SeguimientoPorcionesView(APIView):
 # Peso Mensual
 
 class PesoMensualAllView(APIView):
+
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
+
     def get(self, request):
         pesos = Peso_Mensual.objects.all().order_by('-anio', 'mes')
         serializer = Peso_Mensual_Serializer(pesos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class PesoMensualView(APIView):
+
+    # no auth
+    authentication_classes = [] # no token
+    permission_classes = [AllowAny]
         
     def get(self, request, id, format=None):
         try:
